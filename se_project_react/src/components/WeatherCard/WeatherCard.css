@@ -1,0 +1,20 @@
+.weather__container {
+  max-width: 1360px;
+  position: relative;
+}
+
+.weather__text-degrees {
+  position: absolute;
+  top: 10px;
+  left: 56px;
+
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+
+  margin: 0;
+}
+
+.weather__image {
+  margin: 0 40px 0 40px;
+}

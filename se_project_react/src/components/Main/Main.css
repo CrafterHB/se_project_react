@@ -1,0 +1,12 @@
+.main__text {
+  text-align: left;
+  margin-left: 40px;
+}
+
+.main__card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
