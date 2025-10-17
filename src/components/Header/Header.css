@@ -59,6 +59,8 @@
   line-height: 24px;
   font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
   font-weight: bold;
+
+  color: black;
 }
 
 #header__avatar-name {

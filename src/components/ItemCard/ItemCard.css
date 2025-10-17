@@ -9,6 +9,9 @@
 .card__image {
   width: 325px;
   height: 328px;
+  /* border shorthand requires a style (solid, dashed, etc.) to render */
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
 }
 
 .card__text {
@@ -20,4 +23,10 @@
 
   background-color: white;
   padding: 2px 12px 2px 12px;
+
+  color: rgba(0, 0, 0, 0.6);
+  font-family: "Cabinet Grotesque", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+
+  border-radius: 4px;
 }

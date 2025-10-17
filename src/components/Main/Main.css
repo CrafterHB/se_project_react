@@ -1,6 +1,9 @@
 .main__text {
   text-align: left;
   margin-left: 40px;
+
+  color: black;
+  font-weight: bold;
 }
 
 .main__card-container {
