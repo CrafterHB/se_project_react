@@ -1,12 +1,23 @@
+import { useState, useContext } from "react";
 import logo from "../../assets/Logo.svg";
 import avatar from "../../assets/profile_picture.svg";
+import toggle from "../../assets/toggle.svg";
+import toggleSlider from "../../assets/Toggle Slider.svg";
 import "./Header.css";
 
-function header() {
+export let temp = 0;
+//export const WeatherUnit = createContext();
+
+import { WeatherUnit } from "../App/App.jsx";
+
+function Header({ handleOpenAddGarmentModal, weatherData }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
+
+  const { toggleValue, setToggle } = useContext(WeatherUnit);
+
   return (
     <>
       <link
@@ -16,21 +27,54 @@ function header() {
       <div className="header">
         <div className="header__left-container">
           <img className="header__logo" src={logo} alt="Logo" />
-          <p className="header__text">{currentDate}, New York</p>
+          <p className="header__text">
+            {currentDate}, {weatherData.city}
+          </p>
         </div>
 
-        <div className="header__right-container">
-          <button className="header__button">
-            <span className="header__button-text">+ Add clothes</span>
-          </button>
-          <p className="header__text" id="header__avatar-name">
-            Terrance Tegegne
-          </p>
-          <img className="header__avatar" src={avatar} alt="Avatar" />
-        </div>
+        <WeatherUnit.Provider value={{ toggleValue, setToggle }}>
+          <div className="header__right-container">
+            <div
+              className="header__toggle-container"
+              onClick={() => (toggleValue === 0 ? setToggle(1) : setToggle(0))}
+            >
+              <img src={toggle} alt="Toggle" className="header__toggle" />
+              <p
+                className={`header__toggle-text-f ${
+                  toggleValue === 0 ? "header__toggle-on" : "header__toggle-off"
+                }`}
+              >
+                F
+              </p>
+              <p
+                className={`header__toggle-text-c ${
+                  toggleValue === 1 ? "header__toggle-on" : "header__toggle-off"
+                }`}
+              >
+                C
+              </p>
+              <img
+                src={toggleSlider}
+                alt="Toggle Slider"
+                className={`header__toggle-slider ${
+                  toggleValue === 0
+                    ? "header__toggle-slider-on"
+                    : "header__toggle-slider-off"
+                }`}
+              />
+            </div>
+          </div>
+        </WeatherUnit.Provider>
+        <button className="header__button" onClick={handleOpenAddGarmentModal}>
+          <span className="header__button-text">+ Add clothes</span>
+        </button>
+        <p className="header__text" id="header__avatar-name">
+          Terrance Tegegne
+        </p>
+        <img className="header__avatar" src={avatar} alt="Avatar" />
       </div>
     </>
   );
 }
 
-export default header;
+export default Header;

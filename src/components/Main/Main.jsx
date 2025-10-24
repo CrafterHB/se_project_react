@@ -1,17 +1,33 @@
+import { useContext } from "react";
 import WeatherCard from "../WeatherCard/WeatherCard.jsx";
 import ItemCard from "../ItemCard/ItemCard.jsx";
-
+import { getWeatherCondition } from "../../utils/weatherApi.js";
 import "./Main.css";
 
-function Main({ clothingItems }) {
+import { WeatherUnit } from "../App/App.jsx";
+
+function Main({ clothingItems, handleOpenItemModal, weatherData }) {
+  const { toggleValue } = useContext(WeatherUnit);
   return (
     <>
-      <WeatherCard />
-      <p className="main__text">Today is 75° F / You may want to wear:</p>
+      <WeatherCard weatherData={weatherData} />
+      <p className="main__text">
+        Today is{" "}
+        {toggleValue === 0
+          ? `${weatherData.temp.F}°F`
+          : `${weatherData.temp.C}°C`}{" "}
+        / You may want to wear:
+      </p>
       <div className="main__card-container">
-        {clothingItems.map((item) => {
-          return <ItemCard key={item._id} data={item} />;
-        })}
+        {clothingItems
+          .filter((item) => item.weather === getWeatherCondition(weatherData))
+          .map((item) => (
+            <ItemCard
+              key={item._id}
+              data={item}
+              onCardClick={handleOpenItemModal}
+            />
+          ))}
       </div>
     </>
   );
