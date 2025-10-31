@@ -1,0 +1,45 @@
+.add-modal {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 24px;
+  width: 440px;
+
+  font-weight: bold;
+}
+
+.add-modal__label {
+  text-align: left;
+}
+
+.add-modal__input {
+  margin-bottom: 24px;
+  margin-top: 8px;
+  font-weight: bold;
+
+  border: 0;
+  border-bottom: 1px solid black;
+}
+
+.add-modal__text {
+  text-align: left;
+  margin-top: 0;
+}
+
+.add-modal__radio {
+  display: flex;
+  flex-direction: column;
+
+  width: 250px;
+}
+
+.add-modal__radio-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.add-modal__input_radio {
+  margin: 0;
+  margin-right: 4px;
+}

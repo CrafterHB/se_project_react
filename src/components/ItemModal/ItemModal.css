@@ -52,17 +52,34 @@
 
 .modal__footer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 498px;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 12px;
+  gap: 220px;
 
   background-color: white;
 
   padding: 20px 0 32px;
 
   border-radius: 0 0 16px 16px;
+}
+
+.modal__footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.modal__delete-btn {
+  padding: 0;
+  background: none;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 24px;
+
+  color: rgba(255, 77, 0, 1);
 }
 
 .modal__text {

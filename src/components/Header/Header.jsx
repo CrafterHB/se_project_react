@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/Logo.svg";
 import avatar from "../../assets/profile_picture.svg";
 import toggle from "../../assets/toggle.svg";
@@ -26,7 +27,9 @@ function Header({ handleOpenAddGarmentModal, weatherData }) {
       ></link>
       <div className="header">
         <div className="header__left-container">
-          <img className="header__logo" src={logo} alt="Logo" />
+          <Link to="/">
+            <img className="header__logo" src={logo} alt="Logo" />
+          </Link>
           <p className="header__text">
             {currentDate}, {weatherData.city}
           </p>
@@ -68,9 +71,11 @@ function Header({ handleOpenAddGarmentModal, weatherData }) {
         <button className="header__button" onClick={handleOpenAddGarmentModal}>
           <span className="header__button-text">+ Add clothes</span>
         </button>
-        <p className="header__text" id="header__avatar-name">
-          Terrance Tegegne
-        </p>
+        <Link to="/profile">
+          <p className="header__text" id="header__avatar-name">
+            Terrance Tegegne
+          </p>
+        </Link>
         <img className="header__avatar" src={avatar} alt="Avatar" />
       </div>
     </>

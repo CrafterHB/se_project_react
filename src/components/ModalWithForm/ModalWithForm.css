@@ -1,5 +1,5 @@
 .modal {
-  font-family: "Cabinet Grotesque", Arial, Helvetica, sans-serif;
+  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -22,8 +22,7 @@
 }
 
 .modal__content {
-  max-width: 730px;
-  width: 100%;
+  width: 496px;
   box-sizing: border-box;
   background-color: white;
   border-radius: 10px;
@@ -33,12 +32,19 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding: 28px;
+}
+
+.modal__content form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .modal__close-btn {
   position: absolute;
-  top: 20px;
-  right: 28px;
+  top: 15px;
+  right: 10px;
   background: none;
 }
 
@@ -50,4 +56,18 @@
 
 .modal__form__submit-btn {
   margin: 0;
+  margin-top: 26px;
+  padding: 8px 16px;
+  color: rgba(255, 255, 255, 1);
+  background-color: black;
+
+  transition: background-color 0.25s ease-in-out;
+}
+
+.modal__form__submit-bt_valid:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal__form__submit-btn_disabled {
+  background-color: rgba(0, 0, 0, 0.3);
 }

@@ -1,0 +1,16 @@
+.sidebar {
+  width: 385px;
+}
+
+.sidebar__profile-container {
+  display: flex;
+  flex-direction: row;
+  margin-left: 40px;
+  gap: 16px;
+}
+
+.sidebar__text {
+  font-family: "Cabinet Grotesque", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: black;
+}
