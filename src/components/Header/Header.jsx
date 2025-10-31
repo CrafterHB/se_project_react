@@ -5,7 +5,6 @@ import avatar from "../../assets/profile_picture.svg";
 import toggle from "../../assets/toggle.svg";
 import toggleSlider from "../../assets/Toggle Slider.svg";
 import "./Header.css";
-import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.jsx";
 
 export let temp = 0;
 //export const WeatherUnit = createContext();
