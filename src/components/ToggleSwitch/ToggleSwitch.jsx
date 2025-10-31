@@ -4,7 +4,9 @@ import toggle from "../../assets/toggle.svg";
 import toggleSlider from "../../assets/Toggle Slider.svg";
 //Test
 
-function ToggleSwitch(WeatherUnit) {
+import { WeatherUnit } from "../App/App.jsx";
+
+function ToggleSwitch() {
   const { toggleValue, setToggle } = useContext(WeatherUnit);
 
   return (
