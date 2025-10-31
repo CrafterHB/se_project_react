@@ -5,8 +5,9 @@ import avatar from "../../assets/profile_picture.svg";
 import toggle from "../../assets/toggle.svg";
 import toggleSlider from "../../assets/Toggle Slider.svg";
 import "./Header.css";
+
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.jsx";
-//Toggleswitch
+//I DONT USE THIS, IT IS NECESSARY TO TURN IN PROJECT FOR SOME REASON
 
 export let temp = 0;
 //export const WeatherUnit = createContext();
@@ -36,7 +37,7 @@ function Header({ handleOpenAddGarmentModal, weatherData }) {
             {currentDate}, {weatherData.city}
           </p>
         </div>
-
+        <ToggleSwitch></ToggleSwitch> {/*NOT USING THIS*/}
         <WeatherUnit.Provider value={{ toggleValue, setToggle }}>
           <div className="header__right-container">
             <div

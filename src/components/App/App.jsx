@@ -20,8 +20,9 @@ import Main from "../Main/Main.jsx";
 
 export const WeatherUnit = createContext({
   toggleValue: 0,
-  setToggle: () => {}, // <--- This function is how Header will update state
+  setToggle: () => {},
 });
+
 function App() {
   //const [count, setCount] = useState(0);
   const [activeModal, setActiveModal] = useState("");
