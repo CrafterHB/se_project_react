@@ -1,7 +1,11 @@
 import "./ToggleSwitch.css";
 
 function ToggleSwitch() {
-  return <></>;
+  return (
+    <>
+      <div className="some__jsx"></div>
+    </>
+  );
 }
 
 export default ToggleSwitch;
