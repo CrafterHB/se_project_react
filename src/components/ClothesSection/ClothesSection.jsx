@@ -8,6 +8,7 @@ function ClothesSection({
   clothingItems,
   handleOpenItemModal,
   handleOpenAddGarmentModal,
+  onLikeItem,
 }) {
   return (
     <>
@@ -27,6 +28,7 @@ function ClothesSection({
               key={item._id}
               data={item}
               onCardClick={handleOpenItemModal}
+              onLikeItem={onLikeItem}
             />
           ))}
         </div>

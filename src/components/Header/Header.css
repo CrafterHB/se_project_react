@@ -121,3 +121,29 @@
 #header__avatar-name {
   padding-right: 12px;
 }
+
+.header__auth-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.header__user-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  text-align: start;
+
+  font-size: 20px;
+  min-width: 116px;
+  line-height: 24px;
+  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+
+  color: black;
+}
+
+.header__avatar {
+  width: 40px;
+  height: 40px;
+}

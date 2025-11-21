@@ -7,6 +7,8 @@ function ModalWithForm({
   closeModal,
   children,
   modalTitle,
+  registerText = "",
+  handleOpenRegisterModal,
   onSubmit,
   isValid,
 }) {
@@ -19,17 +21,25 @@ function ModalWithForm({
         </button>
         <form onSubmit={onSubmit}>
           {children}
-          <button
-            className={`modal__form__submit-btn ${
-              !isValid
-                ? "modal__form__submit-btn_disabled"
-                : "modal__form__submit-bt_valid"
-            }`}
-            type="submit"
-            disabled={!isValid}
-          >
-            Add garment
-          </button>
+          <div className="submit-btn-wrapper">
+            <button
+              className={`modal__form__submit-btn ${
+                !isValid
+                  ? "modal__form__submit-btn_disabled"
+                  : "modal__form__submit-bt_valid"
+              }`}
+              type="submit"
+              disabled={!isValid}
+            >
+              {modalTitle}
+            </button>
+            <p
+              onClick={handleOpenRegisterModal}
+              className="modal__register-text"
+            >
+              {registerText}
+            </p>
+          </div>
         </form>
       </div>
     </div>

@@ -4,6 +4,7 @@ import logo from "../../assets/Logo.svg";
 import avatar from "../../assets/profile_picture.svg";
 import toggle from "../../assets/toggle.svg";
 import toggleSlider from "../../assets/Toggle Slider.svg";
+import { useAuth } from "../../context/AuthContext.jsx";
 import "./Header.css";
 
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.jsx";
@@ -14,13 +15,20 @@ export let temp = 0;
 
 import { WeatherUnit } from "../App/App.jsx";
 
-function Header({ handleOpenAddGarmentModal, weatherData }) {
+function Header({
+  handleOpenAddGarmentModal,
+  weatherData,
+  handleOpenLoginModal,
+  handleOpenRegisterModal,
+}) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
 
   const { toggleValue, setToggle } = useContext(WeatherUnit);
+  const { user, token, register, login, logout } = useAuth();
+  const storedToken = localStorage.getItem("jwt");
 
   return (
     <>
@@ -71,15 +79,34 @@ function Header({ handleOpenAddGarmentModal, weatherData }) {
             </div>
           </div>
         </WeatherUnit.Provider>
-        <button className="header__button" onClick={handleOpenAddGarmentModal}>
-          <span className="header__button-text">+ Add clothes</span>
-        </button>
-        <Link to="/profile">
-          <p className="header__text" id="header__avatar-name">
-            Terrance Tegegne
-          </p>
-        </Link>
-        <img className="header__avatar" src={avatar} alt="Avatar" />
+        {user != null ? (
+          <div className="header__user-section">
+            <button
+              className="header__button"
+              onClick={handleOpenAddGarmentModal}
+            >
+              <span className="header__button-text">+ Add clothes</span>
+            </button>
+            <Link to="/profile">
+              <p className="header__text" id="header__avatar-name">
+                {user.name || "User Name"}
+              </p>
+            </Link>
+            <img className="header__avatar" src={user.avatar} alt="Avatar" />
+          </div>
+        ) : (
+          <div className="header__auth-buttons">
+            <button
+              className="header__button"
+              onClick={handleOpenRegisterModal}
+            >
+              <span className="header__button-text">Sign Up</span>
+            </button>
+            <button className="header__button" onClick={handleOpenLoginModal}>
+              <span className="header__button-text">Log In</span>
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

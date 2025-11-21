@@ -6,7 +6,7 @@ import "./Main.css";
 
 import { WeatherUnit } from "../App/App.jsx";
 
-function Main({ clothingItems, handleOpenItemModal, weatherData }) {
+function Main({ clothingItems, handleOpenItemModal, weatherData, onLikeItem }) {
   const { toggleValue } = useContext(WeatherUnit);
   return (
     <>
@@ -26,6 +26,7 @@ function Main({ clothingItems, handleOpenItemModal, weatherData }) {
               key={item._id}
               data={item}
               onCardClick={handleOpenItemModal}
+              onLikeItem={onLikeItem}
             />
           ))}
       </div>

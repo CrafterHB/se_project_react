@@ -6,10 +6,16 @@ import Footer from "../Footer/Footer.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
+import LoginModal from "../LoginModal/LoginModal.jsx";
+import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import Profile from "../Profile/Profile.jsx";
 import { useForm } from "../../hooks/useForm.js";
 
-import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "../../ProtectedRoute.jsx";
+import { AuthProvider } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext.jsx";
+
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import { getWeatherData } from "../../utils/weatherApi.js";
 
@@ -24,11 +30,22 @@ export const WeatherUnit = createContext({
 });
 
 function App() {
-  //const [count, setCount] = useState(0);
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
+
+function AppContent() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [clothingItems, setClothingItems] = useState([]);
   const [weatherData, setWeatherData] = useState({ name: "", temp: "0" });
+  const { user, token, register, login, logout } = useAuth();
+
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const [toggleValue, setToggle] = useState(0);
 
@@ -39,6 +56,14 @@ function App() {
 
   function handleOpenAddGarmentModal() {
     setActiveModal("add-garment-modal");
+  }
+
+  function handeOpenLoginModal() {
+    setActiveModal("login-modal");
+  }
+
+  function handleOpenRegisterModal() {
+    setActiveModal("register-modal");
   }
 
   function closeModal() {
@@ -54,15 +79,17 @@ function App() {
 
     api
       .setClothingItems()
-      .then((data) => {
-        const reversedData = data.slice().reverse();
-        setClothingItems(reversedData)();
+      .then((item) => {
+        const reversedData = item.slice().reverse();
+        setClothingItems(reversedData);
       })
       .catch(console.error);
   }, []);
 
   const handleAddItemSubmit = (item) => {
     const { _id, ...dataToSend } = item;
+
+    console.log(dataToSend);
 
     api
       .addItem(dataToSend)
@@ -94,6 +121,69 @@ function App() {
       });
   }
 
+  const handleLoginSubmit = async (user) => {
+    const { _id, ...dataToSend } = user;
+
+    const identifier =
+      dataToSend.email || dataToSend.username || dataToSend.name;
+    const password = dataToSend.password || dataToSend.pass || dataToSend.link;
+
+    const result = await login(identifier, password);
+
+    if (result && result.success) {
+      navigate("/profile");
+      closeModal();
+      return true;
+    } else {
+      setError((result && result.message) || "Login failed. Please try again.");
+    }
+
+    return false;
+  };
+
+  const handleLikeItem = async (item) => {
+    if (!user) {
+      console.log("Must be logged in to like items");
+      return;
+    }
+    const isLiked = item?.likes?.includes(user?._id) || false;
+
+    if (isLiked) {
+      handleUnlikeItem(item);
+    } else {
+      try {
+        const updatedItem = await api.likeItem(item, user);
+
+        setClothingItems(
+          clothingItems.map((clothingItem) =>
+            clothingItem._id === updatedItem._id ? updatedItem : clothingItem
+          )
+        );
+      } catch (error) {
+        console.error("Error liking item:", error);
+      }
+    }
+  };
+
+  const handleUnlikeItem = async (item) => {
+    if (!user) {
+      console.log("Must be logged in to like items");
+      return;
+    }
+
+    try {
+      const updatedItem = await api.unlikeItem(item, user);
+
+      setClothingItems(
+        clothingItems.map((clothingItem) =>
+          clothingItem._id === updatedItem._id ? updatedItem : clothingItem
+        )
+      );
+    } catch (error) {
+      console.error("Error unliking item:", error);
+    }
+  };
+
   return (
     <>
       <meta
@@ -103,6 +193,8 @@ function App() {
       <WeatherUnit.Provider value={{ toggleValue, setToggle }}>
         <Header
           handleOpenAddGarmentModal={handleOpenAddGarmentModal}
+          handleOpenLoginModal={handeOpenLoginModal}
+          handleOpenRegisterModal={handleOpenRegisterModal}
           weatherData={weatherData}
         />
 
@@ -114,18 +206,22 @@ function App() {
                 clothingItems={clothingItems}
                 handleOpenItemModal={handleOpenItemModal}
                 weatherData={weatherData}
+                onLikeItem={handleLikeItem}
               />
             }
           ></Route>
           <Route
             path="/profile"
             element={
-              <Profile
-                clothingItems={clothingItems}
-                handleOpenItemModal={handleOpenItemModal}
-                handleOpenAddGarmentModal={handleOpenAddGarmentModal}
-                weatherData={weatherData}
-              />
+              <ProtectedRoute>
+                <Profile
+                  clothingItems={clothingItems}
+                  handleOpenItemModal={handleOpenItemModal}
+                  handleOpenAddGarmentModal={handleOpenAddGarmentModal}
+                  weatherData={weatherData}
+                  onLikeItem={handleLikeItem}
+                />
+              </ProtectedRoute>
             }
           ></Route>
         </Routes>
@@ -141,6 +237,18 @@ function App() {
           onAddItem={handleAddItemSubmit}
           closeModal={closeModal}
         ></AddItemModal>
+        <LoginModal
+          isOpen={activeModal === "login-modal"}
+          onAddItem={handleLoginSubmit}
+          closeModal={closeModal}
+          handleOpenRegisterModal={handleOpenRegisterModal}
+        ></LoginModal>
+        <RegisterModal
+          isOpen={activeModal === "register-modal"}
+          closeModal={closeModal}
+          onAddItem={register}
+          loginModal={handeOpenLoginModal}
+        ></RegisterModal>
       </WeatherUnit.Provider>
     </>
   );

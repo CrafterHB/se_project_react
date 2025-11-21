@@ -82,6 +82,10 @@
   color: rgba(255, 77, 0, 1);
 }
 
+.modal__delete-btn-hidden {
+  visibility: hidden;
+}
+
 .modal__text {
   margin: 0;
   padding-left: 32px;

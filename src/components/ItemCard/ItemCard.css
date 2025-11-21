@@ -14,11 +14,17 @@
   border-radius: 8px;
 }
 
-.card__text {
+.card__overlay {
   position: absolute;
   top: 15px;
-  left: 130px;
+  left: 110px;
 
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.card__text {
   margin: 0;
 
   background-color: white;
@@ -29,4 +35,9 @@
   font-weight: bold;
 
   border-radius: 4px;
+}
+
+.card__like {
+  width: 18px;
+  height: 15px;
 }

@@ -8,6 +8,7 @@ function Profile({
   handleOpenItemModal,
   handleOpenAddGarmentModal,
   weatherData,
+  onLikeItem,
 }) {
   return (
     <>
@@ -18,6 +19,7 @@ function Profile({
           handleOpenItemModal={handleOpenItemModal}
           handleOpenAddGarmentModal={handleOpenAddGarmentModal}
           weatherData={weatherData}
+          onLikeItem={onLikeItem}
         ></ClothesSection>
       </div>
     </>
