@@ -1,28 +1,28 @@
 import { useState, useEffect, createContext } from "react";
 import "./App.css";
 
-import Header from "../Header/Header.jsx";
-import Footer from "../Footer/Footer.jsx";
-import ItemModal from "../ItemModal/ItemModal.jsx";
-import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
-import AddItemModal from "../AddItemModal/AddItemModal.jsx";
-import LoginModal from "../LoginModal/LoginModal.jsx";
-import RegisterModal from "../RegisterModal/RegisterModal.jsx";
-import Profile from "../Profile/Profile.jsx";
-import { useForm } from "../../hooks/useForm.js";
+import Header from "../components/Header/Header.jsx";
+import Footer from "../components/Footer/Footer.jsx";
+import ItemModal from "../components/ItemModal/ItemModal.jsx";
+import ModalWithForm from "../components/ModalWithForm/ModalWithForm.jsx";
+import AddItemModal from "../components/AddItemModal/AddItemModal.jsx";
+import LoginModal from "../components/LoginModal/LoginModal.jsx";
+import RegisterModal from "../components/RegisterModal/RegisterModal.jsx";
+import Profile from "../components/Profile/Profile.jsx";
+import { useForm } from "../hooks/useForm.js";
 
-import ProtectedRoute from "../../ProtectedRoute.jsx";
-import { AuthProvider } from "../../context/AuthContext";
-import { useAuth } from "../../context/AuthContext.jsx";
+import ProtectedRoute from "../ProtectedRoute.jsx";
+import { AuthProvider } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext.jsx";
 
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import { getWeatherData } from "../../utils/weatherApi.js";
+import { getWeatherData } from "../utils/weatherApi.js";
 
-import Api from "../../utils/api.js";
+import Api from "../utils/api.js";
 const api = new Api();
 
-import Main from "../Main/Main.jsx";
+import Main from "./Main/Main.jsx";
 
 export const WeatherUnit = createContext({
   toggleValue: 0,

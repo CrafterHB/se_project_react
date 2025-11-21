@@ -1,11 +1,16 @@
 # React + Vite
+
 This is a project that focuses on suggesting items of clothing that you own based on the weather.
 
 # Video
+
 Below I have linked a video of me going over the project. Please keep in mind I do not own a webcam and could not record myself.
 https://drive.google.com/file/d/1Azldwe2MxQoctVs4krNkbNtuS4kNvwA4/view?usp=sharing
 
+# NOTE FOR REVIEWER
 
+It seems like the auto checker for Project 14 is messed up because it looks for App.jsx in the components folder, not the App folder. So if anything is messed up, please try looking at the previous commit
+because I had to change a lot of imports.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

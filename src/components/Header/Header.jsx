@@ -13,7 +13,7 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.jsx";
 export let temp = 0;
 //export const WeatherUnit = createContext();
 
-import { WeatherUnit } from "../App/App.jsx";
+import { WeatherUnit } from "../App.jsx";
 
 function Header({
   handleOpenAddGarmentModal,
