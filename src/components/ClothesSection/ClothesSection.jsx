@@ -3,6 +3,7 @@ import "./ClothesSection.css";
 import ItemCard from "../ItemCard/ItemCard.jsx";
 
 import { getWeatherCondition } from "../../utils/weatherApi.js";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 function ClothesSection({
   clothingItems,
@@ -10,6 +11,8 @@ function ClothesSection({
   handleOpenAddGarmentModal,
   onLikeItem,
 }) {
+  const { user } = useAuth();
+
   return (
     <>
       <div className="clothes-section">
@@ -23,14 +26,19 @@ function ClothesSection({
           </button>
         </div>
         <div className="clothes-section__items">
-          {clothingItems.map((item) => (
-            <ItemCard
-              key={item._id}
-              data={item}
-              onCardClick={handleOpenItemModal}
-              onLikeItem={onLikeItem}
-            />
-          ))}
+          {clothingItems
+            .filter((item) => {
+              const ownerId = item.owner?._id || item.owner;
+              return ownerId === user?._id;
+            })
+            .map((item) => (
+              <ItemCard
+                key={item._id}
+                data={item}
+                onCardClick={handleOpenItemModal}
+                onLikeItem={onLikeItem}
+              />
+            ))}
         </div>
       </div>
     </>

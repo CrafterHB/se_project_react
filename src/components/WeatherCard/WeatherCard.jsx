@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import "./WeatherCard.css";
 import weatherImage from "../../assets/Weather=Cloudy, Time=Day.svg";
-import { WeatherUnit } from "../App.jsx";
+import { WeatherUnit } from "../App/App.jsx";
 
 function WeatherCard({ weatherData }) {
   const { toggleValue } = useContext(WeatherUnit);

@@ -1,28 +1,28 @@
 import { useState, useEffect, createContext } from "react";
 import "./App.css";
 
-import Header from "../components/Header/Header.jsx";
-import Footer from "../components/Footer/Footer.jsx";
-import ItemModal from "../components/ItemModal/ItemModal.jsx";
-import ModalWithForm from "../components/ModalWithForm/ModalWithForm.jsx";
-import AddItemModal from "../components/AddItemModal/AddItemModal.jsx";
-import LoginModal from "../components/LoginModal/LoginModal.jsx";
-import RegisterModal from "../components/RegisterModal/RegisterModal.jsx";
-import Profile from "../components/Profile/Profile.jsx";
-import { useForm } from "../hooks/useForm.js";
+import Header from "../Header/Header.jsx";
+import Footer from "../Footer/Footer.jsx";
+import ItemModal from "../ItemModal/ItemModal.jsx";
+import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
+import AddItemModal from "../AddItemModal/AddItemModal.jsx";
+import LoginModal from "../LoginModal/LoginModal.jsx";
+import RegisterModal from "../RegisterModal/RegisterModal.jsx";
+import Profile from "../Profile/Profile.jsx";
+import { useForm } from "../../hooks/useForm.js";
 
-import ProtectedRoute from "../ProtectedRoute.jsx";
-import { AuthProvider } from "../context/AuthContext";
-import { useAuth } from "../context/AuthContext.jsx";
+import ProtectedRoute from "../../ProtectedRoute.jsx";
+import { AuthProvider } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import { getWeatherData } from "../utils/weatherApi.js";
+import { getWeatherData } from "../../utils/weatherApi.js";
 
-import Api from "../utils/api.js";
+import Api from "../../utils/api.js";
 const api = new Api();
 
-import Main from "./Main/Main.jsx";
+import Main from "../Main/Main.jsx";
 
 export const WeatherUnit = createContext({
   toggleValue: 0,
@@ -146,41 +146,27 @@ function AppContent() {
       console.log("Must be logged in to like items");
       return;
     }
+
     const isLiked = item?.likes?.includes(user?._id) || false;
 
-    if (isLiked) {
-      handleUnlikeItem(item);
-    } else {
-      try {
-        const updatedItem = await api.likeItem(item, user);
-
-        setClothingItems(
-          clothingItems.map((clothingItem) =>
+    try {
+      if (isLiked) {
+        const updatedItem = await api.unlikeItem(item, user);
+        setClothingItems((prevItems) =>
+          prevItems.map((clothingItem) =>
             clothingItem._id === updatedItem._id ? updatedItem : clothingItem
           )
         );
-      } catch (error) {
-        console.error("Error liking item:", error);
+      } else {
+        const updatedItem = await api.likeItem(item, user);
+        setClothingItems((prevItems) =>
+          prevItems.map((clothingItem) =>
+            clothingItem._id === updatedItem._id ? updatedItem : clothingItem
+          )
+        );
       }
-    }
-  };
-
-  const handleUnlikeItem = async (item) => {
-    if (!user) {
-      console.log("Must be logged in to like items");
-      return;
-    }
-
-    try {
-      const updatedItem = await api.unlikeItem(item, user);
-
-      setClothingItems(
-        clothingItems.map((clothingItem) =>
-          clothingItem._id === updatedItem._id ? updatedItem : clothingItem
-        )
-      );
     } catch (error) {
-      console.error("Error unliking item:", error);
+      console.error("Error liking/unliking item:", error);
     }
   };
 

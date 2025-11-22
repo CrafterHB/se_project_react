@@ -4,7 +4,7 @@ import ItemCard from "../ItemCard/ItemCard.jsx";
 import { getWeatherCondition } from "../../utils/weatherApi.js";
 import "./Main.css";
 
-import { WeatherUnit } from "../App.jsx";
+import { WeatherUnit } from "../App/App.jsx";
 
 function Main({ clothingItems, handleOpenItemModal, weatherData, onLikeItem }) {
   const { toggleValue } = useContext(WeatherUnit);
