@@ -2,6 +2,9 @@
 
 This is a project that focuses on suggesting items of clothing that you own based on the weather.
 
+# Backend Repository:
+https://github.com/CrafterHB/se_project_express
+
 # Video
 
 Below I have linked a video of me going over the project. Please keep in mind I do not own a webcam and could not record myself.
