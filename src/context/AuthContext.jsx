@@ -17,7 +17,10 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const [token, setToken] = useState(localStorage.getItem("jwt"));
-  const API_URL = "http://localhost:3001";
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? "https://api.crafterhb.crabdance.com"
+      : "http://localhost:3001";
 
   useEffect(() => {
     const verifyToken = async () => {
