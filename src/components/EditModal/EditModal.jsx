@@ -1,47 +1,41 @@
-import "./RegisterModal.css";
+import "./EditModal.css";
 
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
+import { useEffect } from "react";
 import { useForm } from "../../hooks/useForm.js";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext.jsx";
 
-const RegisterModal = ({
-  isOpen,
-  onAddItem: register,
-  closeModal,
-  loginModal,
-}) => {
+const EditModal = ({ isOpen, onAddItem, closeModal, loginModal }) => {
+  const { user } = useAuth();
+
   const { values, handleChange, setValues } = useForm({
     name: "",
     email: "",
-    password: "",
     avatar: "",
     _id: "",
   });
+
+  useEffect(() => {
+    if (user) {
+      setValues({
+        name: user.name || "",
+        email: user.email || "",
+        avatar: user.avatar || "",
+        _id: user._id || "",
+      });
+    }
+  }, [user, setValues]);
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    (async () => {
-      const result = await register(
-        values.name,
-        values.email,
-        values.password,
-        values.avatar
-      );
-      if (result && result.success) {
-        setValues({ name: "", email: "", password: "", avatar: "", _id: "" });
-        navigate("/profile");
-        closeModal();
-      } else {
-        console.error("Register failed:", result && result.message);
-      }
-    })();
+    onAddItem(values.name, values.email, values.avatar);
+    console.log(values.name);
   };
 
-  const isValid =
-    values.name && values.email && values.password && values.avatar;
+  const isValid = values.name && values.email && values.avatar;
 
   return (
     <>
@@ -49,8 +43,7 @@ const RegisterModal = ({
         isOpen={isOpen}
         closeModal={closeModal}
         onSubmit={handleSubmit}
-        modalTitle="Register"
-        registerText="or Log in"
+        modalTitle="Edit User"
         handleOpenRegisterModal={loginModal}
         isValid={isValid}
       >
@@ -77,17 +70,6 @@ const RegisterModal = ({
             required
           />
 
-          <label className="add-modal__label">Password</label>
-          <input
-            name="password"
-            type="password"
-            className="add-modal__input add-modal__input_image"
-            placeholder="Password"
-            value={values.password}
-            onChange={handleChange}
-            required
-          />
-
           <label className="add-modal__label">Avatar URL</label>
           <input
             name="avatar"
@@ -104,4 +86,4 @@ const RegisterModal = ({
   );
 };
 
-export default RegisterModal;
+export default EditModal;

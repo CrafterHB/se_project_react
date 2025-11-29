@@ -92,7 +92,11 @@ function Header({
                 {user.name || "User Name"}
               </p>
             </Link>
-            <img className="header__avatar" src={user.avatar} alt="Avatar" />
+            <img
+              className="header__avatar"
+              src={user?.avatar}
+              alt={user?.name[0] || "Profile"}
+            />
           </div>
         ) : (
           <div className="header__auth-buttons">

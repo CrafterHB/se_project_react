@@ -9,11 +9,12 @@ function Profile({
   handleOpenAddGarmentModal,
   weatherData,
   onLikeItem,
+  openEditModal,
 }) {
   return (
     <>
       <div className="profile-container">
-        <Sidebar></Sidebar>
+        <Sidebar openEditModal={openEditModal}></Sidebar>
         <ClothesSection
           clothingItems={clothingItems}
           handleOpenItemModal={handleOpenItemModal}

@@ -16,6 +16,9 @@
   height: 40px;
 
   margin-top: 8px;
+
+  text-align: left;
+  font-size: 25px;
 }
 
 .sidebar__text {
@@ -26,6 +29,11 @@
 
 .side__profile-signout-btn {
   background-color: red;
+  width: 50%;
+  margin-top: 50px;
+}
+
+.side__profile-edit-btn {
   width: 50%;
   margin-top: 50px;
 }

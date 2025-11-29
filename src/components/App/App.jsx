@@ -8,6 +8,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
+import EditModal from "../EditModal/EditModal.jsx";
 import Profile from "../Profile/Profile.jsx";
 import { useForm } from "../../hooks/useForm.js";
 
@@ -42,7 +43,7 @@ function AppContent() {
   const [selectedCard, setSelectedCard] = useState({});
   const [clothingItems, setClothingItems] = useState([]);
   const [weatherData, setWeatherData] = useState({ name: "", temp: "0" });
-  const { user, token, register, login, logout } = useAuth();
+  const { user, token, register, login, logout, edit } = useAuth();
 
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -64,6 +65,10 @@ function AppContent() {
 
   function handleOpenRegisterModal() {
     setActiveModal("register-modal");
+  }
+
+  function handleOpenEditModal() {
+    setActiveModal("edit-modal");
   }
 
   function closeModal() {
@@ -141,6 +146,12 @@ function AppContent() {
     return false;
   };
 
+  async function editUser(name, email, avatar) {
+    const result = await edit(name, email, avatar);
+
+    console.log(name);
+  }
+
   const handleLikeItem = async (item) => {
     if (!user) {
       console.log("Must be logged in to like items");
@@ -206,6 +217,7 @@ function AppContent() {
                   handleOpenAddGarmentModal={handleOpenAddGarmentModal}
                   weatherData={weatherData}
                   onLikeItem={handleLikeItem}
+                  openEditModal={handleOpenEditModal}
                 />
               </ProtectedRoute>
             }
@@ -235,6 +247,11 @@ function AppContent() {
           onAddItem={register}
           loginModal={handeOpenLoginModal}
         ></RegisterModal>
+        <EditModal
+          isOpen={activeModal === "edit-modal"}
+          closeModal={closeModal}
+          onAddItem={editUser}
+        ></EditModal>
       </WeatherUnit.Provider>
     </>
   );

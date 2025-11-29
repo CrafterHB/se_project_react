@@ -109,7 +109,29 @@ export const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
-  const value = { user, token, register, login, logout };
+  const edit = async (username, email, avatar) => {
+    if (user != null) {
+      try {
+        const response = await fetch(`${API_URL}/${user._id}/me`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ name: username, email, avatar }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          window.location.reload();
+        }
+      } catch (error) {
+        console.error("User edit error:", error);
+      }
+    }
+  };
+
+  const value = { user, token, register, login, logout, edit };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

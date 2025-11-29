@@ -2,7 +2,7 @@ import avatar from "../../assets/profile_picture.svg";
 import "./Sidebar.css";
 import { useAuth } from "../../context/AuthContext.jsx";
 
-function Sidebar() {
+function Sidebar({ openEditModal }) {
   const { user, token, register, login, logout } = useAuth();
   return (
     <>
@@ -11,10 +11,14 @@ function Sidebar() {
           <img
             className="sidebar__avatar"
             src={user?.avatar || avatar}
-            alt="avatar"
+            alt={user?.name[0] || avatar}
           />
           <p className="sidebar__text">{user?.name || "Username"}</p>
         </div>
+
+        <button onClick={openEditModal} className="side__profile-edit-btn">
+          Edit Profile
+        </button>
 
         <button onClick={logout} className="side__profile-signout-btn">
           Sign Out
