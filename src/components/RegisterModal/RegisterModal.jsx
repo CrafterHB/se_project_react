@@ -34,6 +34,7 @@ const RegisterModal = ({
         setValues({ name: "", email: "", password: "", avatar: "", _id: "" });
         navigate("/profile");
         closeModal();
+        window.location.reload();
       } else {
         console.error("Register failed:", result && result.message);
       }
