@@ -7,7 +7,7 @@ https://github.com/CrafterHB/se_project_express
 
 # Video
 
-Below I have linked a video of me going over the project. Please keep in mind I do not own a webcam and could not record myself.
+Below I have linked a video of me going over the project. Please keep in mind I did not own a webcam at the time and could not record myself.
 https://drive.google.com/file/d/1Azldwe2MxQoctVs4krNkbNtuS4kNvwA4/view?usp=sharing
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
